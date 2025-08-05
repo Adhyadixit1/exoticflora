@@ -363,13 +363,80 @@ const PlantCatalog = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
+  // Function to calculate similarity between two strings (0-1)
+  const getSimilarity = (str1: string, str2: string): number => {
+    const s1 = str1.toLowerCase();
+    const s2 = str2.toLowerCase();
+    
+    // Exact match
+    if (s1 === s2) return 1;
+    
+    // Check for partial matches
+    if (s1.includes(s2) || s2.includes(s1)) return 0.9;
+    
+    // Check for common misspellings and alternative names
+    const commonMisspellings: Record<string, string[]> = {
+      'guava': ['gauva', 'guvava'],
+      'mango': ['mangoe', 'manggo'],
+      'lemon': ['limon', 'lemin', 'lime'],
+      'orange': ['orrange', 'orenge'],
+      'dragon fruit': ['pitaya', 'pitahaya'],
+      'coconut': ['cocunut', 'cocount'],
+      'chrysanthemum': ['chrysanthamum', 'chrysanthemem'],
+      'hibiscus': ['hibiscuss', 'hisbiscus'],
+      'jasmine': ['jasmin', 'jessamine'],
+      'marigold': ['marygold', 'merigold']
+    };
+    
+    // Check if either string is in the other's misspellings
+    for (const [correct, misspellings] of Object.entries(commonMisspellings)) {
+      if ((s1 === correct && misspellings.includes(s2)) || 
+          (s2 === correct && misspellings.includes(s1))) {
+        return 0.8;
+      }
+    }
+    
+    // Simple similarity check (Levenshtein distance would be better but this is simpler)
+    const words1 = s1.split(/\s+/);
+    const words2 = s2.split(/\s+/);
+    
+    // Check if any word from search appears in the target
+    for (const word1 of words1) {
+      for (const word2 of words2) {
+        if (word1.length > 3 && word2.length > 3 && 
+            (word1.includes(word2) || word2.includes(word1))) {
+          return 0.7;
+        }
+      }
+    }
+    
+    return 0;
+  };
+  
   // Filter plants based on search term and active category
   const filteredCategories = plantCategories.filter(({ category, plants }) => {
-    const matchesSearch = plants.some(
-      (plant) =>
-        plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (!searchTerm.trim()) return true;
+    
+    const search = searchTerm.toLowerCase();
+    
+    // Check if any plant in this category matches the search
+    const matchesSearch = plants.some(plant => {
+      const name = plant.name.toLowerCase();
+      const categoryLower = category.toLowerCase();
+      
+      // Check direct matches first
+      if (name.includes(search) || categoryLower.includes(search)) {
+        return true;
+      }
+      
+      // Check for similar matches
+      const nameSimilarity = getSimilarity(name, search);
+      const categorySimilarity = getSimilarity(categoryLower, search);
+      
+      return nameSimilarity > 0.6 || categorySimilarity > 0.6;
+    });
+    
+    return matchesSearch;
     
     const isFruitCategory = [
     'Guava', 'Lemon', 'Mosambi', 'Orange', 'Apple Ber', 'Dragon Fruit', 'Chikko', 'Coconut',

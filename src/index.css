@@ -2,9 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal scrolling on mobile devices */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Enable smooth scrolling for the entire document */
 html {
   scroll-behavior: smooth;
+}
+
+/* Ensure all elements stay within viewport */
+* {
+  box-sizing: border-box;
 }
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
