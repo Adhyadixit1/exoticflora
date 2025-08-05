@@ -62,7 +62,7 @@ const FeaturedPlants = () => {
   };
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-background" id="featured-plants">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
