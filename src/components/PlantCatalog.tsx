@@ -449,74 +449,77 @@ const PlantCatalog = () => {
   
   // Filter plants based on search term and active category
   const filteredCategories = plantCategories.filter(({ category, plants }) => {
-    if (!searchTerm.trim()) return true;
-    
-    const search = searchTerm.toLowerCase();
-    
-    // Check if any plant in this category matches the search
-    const matchesSearch = plants.some(plant => {
-      const name = plant.name.toLowerCase();
-      const categoryLower = category.toLowerCase();
-      
-      // Check direct matches first
-      if (name.includes(search) || categoryLower.includes(search)) {
-        return true;
-      }
-      
-      // Check for similar matches
-      const nameSimilarity = getSimilarity(name, search);
-      const categorySimilarity = getSimilarity(categoryLower, search);
-      
-      return nameSimilarity > 0.6 || categorySimilarity > 0.6;
-    });
-    
-    return matchesSearch;
-    
+    // First, check if the category matches the active filter
     const isFruitCategory = [
-    'Guava', 'Lemon', 'Mosambi', 'Orange', 'Apple Ber', 'Dragon Fruit', 'Chikko', 'Coconut',
-    'Jackfruit', 'Longon', 'Litchi', 'Water Apple', 'Pomelo', 'Jamun', 'Kiwi', 'Amla',
-    'Pomegranate', 'Mulberry', 'Custard Apple', 'Cherry', 'Berry'
-  ].some(fruit => category.includes(fruit));
-  
-  const isOrnamentalCategory = [
-    'Azalea', 'Rhododendron', 'Petunia', 'Balsam', 'Rain Lily', 'Chrysanthemum', 'Kanakambara',
-    'Coleus', 'Geranium', 'Oleander', 'Plumeria', 'Frangipani', 'Bougainvillea', 'Lantana',
-    'Mussaenda', 'Philippine Violet', 'Barleria', 'Gardenia', 'Jasmine', 'Hibiscus', 'Ixora',
-    'Stephanotis', 'Tagetes', 'Plumbago', 'Magnolia', 'Tabebuia', 'Bauhinia', 'Ornamental',
-    'Flowering Trees', 'Seasonal Blooms'
-  ].some(ornamental => category.includes(ornamental));
-  
-  const isMasalaPlant = [
-    'Dalchini', 'Bay leaf', 'Black paper', 'Jayfal', 'Kari patta', 'Elachi', 'Masala',
-    'Sweet tamarind', 'Thai all Time sweet amra', 'Cashew nuts', 'All time star fruit',
-    'Parsimmon', 'Rambhutan', 'Mangosteen', 'HRMN 99 Apple', 'Olive', 'G9 Banana',
-    'Red banana', 'Macdomia nut', 'Apricot', 'Passion fruit', 'Pear', 'Almond',
-    'Sweet lubi', 'Black sapota', 'Nonifol', 'Abiu', 'Jaboticaba', 'Fig Anjeer',
-    'Pune rade fig', 'Turki brown fig', 'Red sandalwood', 'White Sandalwood',
-    'Mehgoni', 'Segun', 'Supari', 'Forest Plant'
-  ].some(plant => category.includes(plant));
-  
-  const isFlowerCategory = (category: string): boolean => {
-    // Only match exact category names from the provided list
-    const flowerCategories = [
-      '🌳 Flowering Trees & Seasonal Blooms',
-      '🏵 Annual & Showy Flowers',
-      '🌹 Climbing & Color Roses',
-      '🌸 Orchids & Exotic Flowerers',
-      '🌼 Native & Fragrant Indian Flowering Shrubs'
-    ];
+      'Guava', 'Lemon', 'Mosambi', 'Orange', 'Apple Ber', 'Dragon Fruit', 'Chikko', 'Coconut',
+      'Jackfruit', 'Longon', 'Litchi', 'Water Apple', 'Pomelo', 'Jamun', 'Kiwi', 'Amla',
+      'Pomegranate', 'Mulberry', 'Custard Apple', 'Cherry', 'Berry', 'Mango'
+    ].some(fruit => category.includes(fruit));
     
-    return flowerCategories.includes(category);
-  };
-  
-  const matchesCategory = 
-      activeCategory === "All Plants" || 
-      (activeCategory === "Fruit Plants" && isFruitCategory) ||
-      (activeCategory === "Flowers" && isFlowerCategory(category)) ||
-      (activeCategory === "Ornamental" && (category.includes("🌿") || isOrnamentalCategory)) ||
-      (activeCategory === "Masala Plants" && isMasalaPlant);
+    const isOrnamentalCategory = [
+      'Azalea', 'Rhododendron', 'Petunia', 'Balsam', 'Rain Lily', 'Chrysanthemum', 'Kanakambara',
+      'Coleus', 'Geranium', 'Oleander', 'Plumeria', 'Frangipani', 'Bougainvillea', 'Lantana',
+      'Mussaenda', 'Philippine Violet', 'Barleria', 'Gardenia', 'Jasmine', 'Hibiscus', 'Ixora',
+      'Stephanotis', 'Tagetes', 'Plumbago', 'Magnolia', 'Tabebuia', 'Bauhinia', 'Ornamental',
+      'Flowering Trees', 'Seasonal Blooms'
+    ].some(ornamental => category.includes(ornamental));
     
-    return matchesSearch && matchesCategory;
+    const isMasalaPlant = [
+      'Dalchini', 'Bay leaf', 'Black paper', 'Jayfal', 'Kari patta', 'Elachi', 'Masala',
+      'Sweet tamarind', 'Thai all Time sweet amra', 'Cashew nuts', 'All time star fruit',
+      'Parsimmon', 'Rambhutan', 'Mangosteen', 'HRMN 99 Apple', 'Olive', 'G9 Banana',
+      'Red banana', 'Macdomia nut', 'Apricot', 'Passion fruit', 'Pear', 'Almond',
+      'Sweet lubi', 'Black sapota', 'Nonifol', 'Abiu', 'Jaboticaba', 'Fig Anjeer',
+      'Pune rade fig', 'Turki brown fig', 'Red sandalwood', 'White Sandalwood',
+      'Mehgoni', 'Segun', 'Supari', 'Forest Plant'
+    ].some(plant => category.includes(plant));
+    
+    const isFlowerCategory = (category: string): boolean => {
+      // Only match exact category names from the provided list
+      const flowerCategories = [
+        '🌳 Flowering Trees & Seasonal Blooms',
+        '🏵 Annual & Showy Flowers',
+        '🌹 Climbing & Color Roses',
+        '🌸 Orchids & Exotic Flowerers',
+        '🌼 Native & Fragrant Indian Flowering Shrubs'
+      ];
+      
+      return flowerCategories.includes(category);
+    };
+    
+    const matchesCategory = 
+        activeCategory === "All Plants" || 
+        (activeCategory === "Fruit Plants" && isFruitCategory) ||
+        (activeCategory === "Flowers" && isFlowerCategory(category)) ||
+        (activeCategory === "Ornamental" && (category.includes("🌿") || isOrnamentalCategory)) ||
+        (activeCategory === "Masala Plants" && isMasalaPlant);
+    
+    // If there's a search term, check for matches
+    if (searchTerm.trim()) {
+      const search = searchTerm.toLowerCase();
+      
+      // Check if any plant in this category matches the search
+      const matchesSearch = plants.some(plant => {
+        const name = plant.name.toLowerCase();
+        const categoryLower = category.toLowerCase();
+        
+        // Check direct matches first
+        if (name.includes(search) || categoryLower.includes(search)) {
+          return true;
+        }
+        
+        // Check for similar matches
+        const nameSimilarity = getSimilarity(name, search);
+        const categorySimilarity = getSimilarity(categoryLower, search);
+        
+        return nameSimilarity > 0.6 || categorySimilarity > 0.6;
+      });
+      
+      return matchesSearch && matchesCategory;
+    }
+    
+    // If no search term, just check category
+    return matchesCategory;
   });
 
   return (
