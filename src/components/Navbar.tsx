@@ -53,8 +53,13 @@ const Navbar = () => {
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
           >
-            <Leaf className="h-8 w-8 text-green-700 dark:text-green-500" />
-            <span className="text-2xl font-bold text-gray-800 dark:text-white">Exotic Flora</span>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            >
+              <Leaf className="h-8 w-8 text-green-500" />
+            </motion.div>
+            <span className="text-2xl font-bold text-white">Exotic Flora</span>
           </motion.div>
           
           {/* Desktop Navigation */}
@@ -63,7 +68,7 @@ const Navbar = () => {
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-gray-800 hover:text-green-600 dark:text-white dark:hover:text-green-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-green-200 transition-colors duration-300 font-medium"
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
                 onClick={handleNavClick}
