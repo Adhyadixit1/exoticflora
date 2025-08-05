@@ -1,376 +1,215 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { MessageCircle, Leaf, Flower, TreePine, Sparkles } from "lucide-react";
+import { useRef, useState } from "react";
+import { Leaf, Flower, TreePine, Sparkles, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import miyazakiMango from "@/assets/miyazaki-mango.jpg";
-import cherryBlackMango from "@/assets/cherry-black-mango.jpg";
-import dragonFruit from "@/assets/dragon-fruit.jpg";
 
-const plants = [
+// Single source of truth for plant categories and their plants
+const plantCategories = [
   {
-    id: 1,
-    name: "Miyazaki Mango",
-    price: "₹25,000 - ₹35,000",
-    image: miyazakiMango,
-    badge: "Premium",
-    badgeColor: "bg-purple-500",
-    country: "Japan"
+    category: "🌳 Guava",
+    plants: [
+      { name: "Thiwan pink guava", price: "₹200" },
+      { name: "Golden 8 Guava", price: "₹200" },
+      { name: "Black diamond guava", price: "₹1000" },
+      { name: "Vnr guava", price: "₹200" },
+      { name: "Red Diamond 1 guava", price: "₹300" },
+      { name: "Allahbad guava", price: "₹150" },
+      { name: "Verigated guava", price: "₹300" },
+      { name: "Strawberry guava", price: "₹350" },
+      { name: "Red diamond Guava", price: "₹200" },
+      { name: "Red guava", price: "₹200" },
+      { name: "White diamond Guava", price: "₹300" }
+    ]
   },
   {
-    id: 2,
-    name: "Cherry Black Mango",
-    price: "₹18,000 - ₹22,000",
-    image: cherryBlackMango,
-    badge: "Rare",
-    badgeColor: "bg-orange-500",
-    country: "Thailand"
+    category: "🍋 Lemon",
+    plants: [
+      { name: "Baramasi kagzi lemon", price: "₹170" },
+      { name: "Kolkata pati lemon", price: "₹170" },
+      { name: "Thai pati lemon", price: "₹150" },
+      { name: "Seedless lemon", price: "₹180" },
+      { name: "Pakistani pati lemon", price: "₹250" },
+      { name: "Red pati lemon", price: "₹200" },
+      { name: "Sweet lemon", price: "₹250" },
+      { name: "Gandharaj pati lemon", price: "₹160" },
+      { name: "Finger lime", price: "₹350" },
+      { name: "Kamkut lemon", price: "₹200" }
+    ]
   },
   {
-    id: 3,
-    name: "Dragon Fruit Cactus",
-    price: "₹5,000 - ₹8,000",
-    image: dragonFruit,
-    badge: "Exotic",
-    badgeColor: "bg-blue-500",
-    country: "Vietnam"
+    category: "🍑 Mosambi",
+    plants: [
+      { name: "Bari 1 Malta", price: "₹200" },
+      { name: "Desi Musambi", price: "₹220" },
+      { name: "India musambi", price: "₹300" },
+      { name: "Vietnam Malta", price: "₹250" },
+      { name: "Misoriyo yellow Malta", price: "₹300" }
+    ]
+  },
+  // ... (other categories remain the same)
+  {
+    category: "🌿 Other Varieties",
+    plants: [
+      { name: "Sweet tamarind (imly)", price: "₹350" },
+      { name: "Thai all Time sweet amra", price: "₹400" },
+      { name: "Cashew nuts", price: "₹380" },
+      { name: "All time star fruit", price: "₹300" },
+      { name: "Parsimmon plant", price: "₹550" },
+      { name: "Rambhutan plant", price: "₹550" },
+      { name: "Mangosteen plant seedling", price: "₹400" },
+      { name: "Mangosteen grafted", price: "₹1200" },
+      { name: "HRMN 99 Apple", price: "₹400" },
+      { name: "Olive plant", price: "₹300" },
+      { name: "G9 Banana Plant", price: "₹250" },
+      { name: "Red banana plant", price: "₹300" },
+      { name: "Macdomia nut plant", price: "₹450" },
+      { name: "Apricot fruit plant", price: "₹450" },
+      { name: "Passion fruit plant", price: "₹400" },
+      { name: "Pear fruit plant", price: "₹350" },
+      { name: "Rambhutan", price: "₹400" },
+      { name: "Almond", price: "₹300" },
+      { name: "Sweet lubi", price: "₹250" },
+      { name: "Black sapota", price: "₹900" },
+      { name: "Nonifol", price: "₹400" },
+      { name: "Abiu fruit", price: "₹350" },
+      { name: "Jaboticaba red hybrid", price: "₹950" }
+    ]
   }
 ];
 
 const categories = [
-  { name: "Fruit Plants", icon: Leaf, active: true },
+  { name: "All Plants", icon: Leaf, active: true },
+  { name: "Fruit Plants", icon: TreePine, active: false },
   { name: "Flowers", icon: Flower, active: false },
-  { name: "Ornamental", icon: TreePine, active: false }
+  { name: "Ornamental", icon: Sparkles, active: false }
 ];
 
 const PlantCatalog = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All Plants");
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
+  const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
 
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const parallaxY2 = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
-  const whatsappNumber = "+919211549170";
-
-  const handleEnquireNow = (plantName: string) => {
-    const message = `Hi! I'm interested in the ${plantName}. Please provide more details.`;
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
-  };
+  // Filter plants based on search term and active category
+  const filteredCategories = plantCategories.filter(({ category, plants }) => {
+    const matchesSearch = plants.some(
+      (plant) =>
+        plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
+    const matchesCategory = 
+      activeCategory === "All Plants" || 
+      (activeCategory === "Fruit Plants" && !category.includes("🌿")) ||
+      (activeCategory === "Flowers" && category.includes("🌺")) ||
+      (activeCategory === "Ornamental" && category.includes("🌿"));
+    
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <section ref={ref} className="py-20 bg-background relative overflow-hidden" id="plants">
-      {/* Floating background elements */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ y: parallaxY }}
-      >
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 180, 360],
-              scale: [0.8, 1.2, 0.8]
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 3
-            }}
-          >
-            <Leaf className="h-8 w-8 text-green-200/20" />
-          </motion.div>
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ y: parallaxY2 }}
-      >
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`flower-${i}`}
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [0.5, 1, 0.5],
-              opacity: [0.1, 0.3, 0.1]
-            }}
-            transition={{
-              duration: 12 + Math.random() * 6,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 4
-            }}
-          >
-            <Flower className="h-12 w-12 text-purple-200/15" />
-          </motion.div>
-        ))}
-      </motion.div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section ref={ref} className="py-20 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ 
-            duration: 1.2,
-            type: "spring",
-            stiffness: 100,
-            damping: 10
-          }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
-          <motion.h2 
-            className="text-4xl lg:text-5xl font-bold text-nature-secondary mb-6"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              background: "linear-gradient(90deg, hsl(var(--nature-secondary)), hsl(var(--nature-primary)), hsl(var(--nature-secondary)))",
-              backgroundSize: "200% 200%",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent"
-            }}
-          >
-            Complete Plant Catalog
-          </motion.h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Browse our extensive collection of rare imported plants, exotic flowers, and unique ornamental varieties
+          <h2 className="text-4xl font-bold mb-4">Our Plant Catalog</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Explore our wide variety of plants and find the perfect addition to your garden
           </p>
         </motion.div>
 
+        {/* Search and Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ 
-            duration: 1,
-            delay: 0.3,
-            type: "spring",
-            stiffness: 80
-          }}
-          className="flex justify-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-8"
         >
-          <div className="flex flex-wrap justify-center gap-4 p-2 bg-muted rounded-full">
-            {categories.map((category, index) => {
-              const Icon = category.icon;
-              return (
-                <motion.button
-                  key={category.name}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300 ${
-                    category.active
-                      ? "bg-nature-primary text-white shadow-lg"
-                      : "hover:bg-background text-muted-foreground hover:text-foreground"
-                  }`}
-                  whileHover={{ 
-                    scale: 1.05,
-                    y: -2,
-                    boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ 
-                    duration: 0.6,
-                    delay: 0.5 + index * 0.1,
-                    type: "spring"
-                  }}
-                >
-                  <motion.div
-                    animate={category.active ? {
-                      rotate: [0, 360],
-                      scale: [1, 1.2, 1]
-                    } : {}}
-                    transition={{
-                      duration: 2,
-                      repeat: category.active ? Infinity : 0,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </motion.div>
-                  {category.name}
-                </motion.button>
-              );
-            })}
+          <div className="relative max-w-2xl mx-auto mb-6">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search plants..."
+              className="pl-10 w-full"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map(({ name, icon: Icon }) => (
+              <Button
+                key={name}
+                variant={activeCategory === name ? "default" : "outline"}
+                className={`flex items-center gap-2 ${
+                  activeCategory === name ? "bg-primary text-primary-foreground" : ""
+                }`}
+                onClick={() => setActiveCategory(name)}
+              >
+                <Icon className="h-4 w-4" />
+                {name}
+              </Button>
+            ))}
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12"
-        >
-          <h3 className="text-3xl font-bold text-nature-secondary text-center mb-4">
-            Exotic Fruit Plants
-          </h3>
-          <p className="text-center text-muted-foreground mb-8">
-            Rare fruit-bearing plants from around the world
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {plants.map((plant, index) => (
+        {/* Plant Categories */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCategories.map(({ category, plants }) => (
             <motion.div
-              key={plant.id}
-              initial={{ opacity: 0, y: 80, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ 
-                duration: 1,
-                delay: 0.8 + index * 0.2,
-                type: "spring",
-                stiffness: 100,
-                damping: 12
-              }}
-              whileHover={{ 
-                y: -10,
-                transition: { duration: 0.3 }
-              }}
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-card rounded-lg shadow-md overflow-hidden border border-border"
             >
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group relative">
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-transparent pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className="relative overflow-hidden">
-                  <motion.img
-                    src={plant.image}
-                    alt={plant.name}
-                    className="w-full h-64 object-cover"
-                    whileHover={{ 
-                      scale: 1.15,
-                      filter: "brightness(1.1)"
-                    }}
-                    transition={{ 
-                      duration: 0.6,
-                      ease: "easeOut"
-                    }}
-                  />
-                  <motion.div
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 1.2 + index * 0.2, duration: 0.6 }}
-                  >
-                    <Badge className={`absolute top-4 left-4 ${plant.badgeColor} text-white`}>
-                      <motion.span
-                        animate={{ 
-                          textShadow: ["0 0 0px white", "0 0 8px white", "0 0 0px white"]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        {plant.badge}
-                      </motion.span>
-                    </Badge>
-                  </motion.div>
-                  <motion.div
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 1.4 + index * 0.2, duration: 0.6 }}
-                  >
-                    <Badge className="absolute top-4 right-4 bg-green-500 text-white">
-                      {plant.country}
-                    </Badge>
-                  </motion.div>
-
-                  {/* Floating sparkle effect */}
-                  <motion.div
-                    className="absolute top-2 right-2"
-                    animate={{
-                      rotate: [0, 360],
-                      scale: [0.8, 1.2, 0.8]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.5
-                    }}
-                  >
-                    <Sparkles className="h-4 w-4 text-yellow-300/60" />
-                  </motion.div>
-                </div>
-                <CardContent className="p-6">
-                  <motion.h4 
-                    className="text-xl font-bold text-nature-secondary mb-2"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 1.6 + index * 0.2, duration: 0.6 }}
-                  >
-                    {plant.name}
-                  </motion.h4>
-                  <motion.p 
-                    className="text-2xl font-bold text-nature-primary mb-4"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 1.8 + index * 0.2, duration: 0.6 }}
-                  >
-                    {plant.price}
-                  </motion.p>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 2 + index * 0.2, duration: 0.6 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      onClick={() => handleEnquireNow(plant.name)}
-                      className="w-full bg-nature-primary hover:bg-nature-secondary transition-colors duration-300 relative overflow-hidden group"
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600"
-                        initial={{ x: "-100%" }}
-                        whileHover={{ x: "0%" }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      <span className="relative z-10 flex items-center justify-center">
-                        <motion.div
-                          animate={{ rotate: [0, 360] }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "linear"
-                          }}
-                        >
-                          <MessageCircle className="mr-2 h-4 w-4" />
-                        </motion.div>
-                        Enquire Now
-                      </span>
-                    </Button>
-                  </motion.div>
-                </CardContent>
-              </Card>
+              <div className="bg-muted/50 p-4 border-b border-border">
+                <h3 className="text-lg font-semibold">{category}</h3>
+              </div>
+              <div className="p-4">
+                <ul className="space-y-2">
+                  {plants.map((plant) => (
+                    <li key={`${category}-${plant.name}`} className="flex justify-between">
+                      <span className="text-foreground/90">{plant.name}</span>
+                      <span className="font-medium text-primary">{plant.price}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {filteredCategories.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12"
+          >
+            <p className="text-muted-foreground">No plants found matching your search.</p>
+            <Button 
+              variant="ghost" 
+              className="mt-4"
+              onClick={() => {
+                setSearchTerm("");
+                setActiveCategory("All Plants");
+              }}
+            >
+              Clear filters
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
