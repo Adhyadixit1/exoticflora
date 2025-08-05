@@ -395,26 +395,23 @@ const PlantCatalog = () => {
     'Mehgoni', 'Segun', 'Supari', 'Forest Plant'
   ].some(plant => category.includes(plant));
   
-  const isFlowerCategory = [
-    // Flowering Trees & Seasonal Blooms
-    'Magnolia champaca', 'Tabebuia', 'Bauhinia', 'Cassia fistula',
-    // Annual & Showy Flowers
-    'Dahlia', 'Zinnia', 'Sunflower', 'Gladiolus',
-    // Climbing & Color Roses
-    'Climbing Rose', 'Hybrid English Rose', 'Damascus Rose', 'Miniature/Button Roses',
-    // Orchids & Exotic Flowerers
-    'Phalaenopsis', 'Dendrobium', 'Spathoglottis', 'Oncidium', 'Tolumnia',
-    'Cattleya', 'Vanda', 'Jewel Orchid', 'Anoectochilus',
-    // Native & Fragrant Indian Flowering Shrubs
-    'Raat Ki Rani', 'Cestrum', 'Chameli', 'Mogra', 'Jasminum', 'Harshringar',
-    'Parijat', 'Ixora', 'Hibiscus', 'Thunbergia', 'Periwinkle',
-    'Catharanthus', 'Marigold', 'Tagetes', 'Mysore Mallige'
-  ].some(flower => category.includes(flower));
+  const isFlowerCategory = (category: string): boolean => {
+    // Only match exact category names from the provided list
+    const flowerCategories = [
+      '🌳 Flowering Trees & Seasonal Blooms',
+      '🏵 Annual & Showy Flowers',
+      '🌹 Climbing & Color Roses',
+      '🌸 Orchids & Exotic Flowerers',
+      '🌼 Native & Fragrant Indian Flowering Shrubs'
+    ];
+    
+    return flowerCategories.includes(category);
+  };
   
   const matchesCategory = 
       activeCategory === "All Plants" || 
       (activeCategory === "Fruit Plants" && isFruitCategory) ||
-      (activeCategory === "Flowers" && (category.match(/[🌷🌺🌸🌹🌻🌼💮🏵️]/) || isFlowerCategory)) ||
+      (activeCategory === "Flowers" && isFlowerCategory(category)) ||
       (activeCategory === "Ornamental" && (category.includes("🌿") || isOrnamentalCategory)) ||
       (activeCategory === "Masala Plants" && isMasalaPlant);
     
