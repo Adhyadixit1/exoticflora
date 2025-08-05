@@ -47,7 +47,272 @@ const plantCategories = [
       { name: "Misoriyo yellow Malta", price: "₹300" }
     ]
   },
-  // ... (other categories remain the same)
+  {
+    category: "🍊 Orange (Santra)",
+    plants: [
+      { name: "Darjeeling Orange", price: "₹300" },
+      { name: "Mandarin Orange", price: "₹300" },
+      { name: "Vutani Satoki Orange", price: "₹330" },
+      { name: "Thai 2 orange", price: "₹350" },
+      { name: "Pakistani orange", price: "₹350" },
+      { name: "Decopon orange", price: "₹370" },
+      { name: "Nagpur orange", price: "₹300" },
+      { name: "Chainij Ramlongon orange", price: "₹250" },
+      { name: "Blad orange", price: "₹450" },
+      { name: "Kinnu orange", price: "₹300" }
+    ]
+  },
+  {
+    category: "🍎 Apple Ber Plant",
+    plants: [
+      { name: "Green apple ber plant", price: "₹130" },
+      { name: "Miss India apple ber", price: "₹120" },
+      { name: "Ball sundari apple ber plant", price: "₹110" }
+    ]
+  },
+  {
+    category: "🐉 Dragon Fruit",
+    plants: [
+      { name: "Pink dragon", price: "₹100" },
+      { name: "Moroccan Red dragon", price: "₹120" },
+      { name: "Yellow dragon", price: "₹150" }
+    ]
+  },
+  {
+    category: "🌰 Chikko Plant",
+    plants: [
+      { name: "Cricket ball chikko", price: "₹220" },
+      { name: "Thai Banana Chiku", price: "₹250" },
+      { name: "Kalapati chikko", price: "₹240" },
+      { name: "Verigated chikko", price: "₹250" }
+    ]
+  },
+  {
+    category: "🥥 Coconut Plant",
+    plants: [
+      { name: "Gangabardhan coconut", price: "₹500" },
+      { name: "Vietnaam coconut", price: "₹500" },
+      { name: "Keralian coconut", price: "₹450" },
+      { name: "Desi coconut", price: "₹350" },
+      { name: "Malasian green coconut", price: "₹500" }
+    ]
+  },
+  {
+    category: "🌳 Jackfruit Plant",
+    plants: [
+      { name: "Vietnam super early jackfruit", price: "₹350" },
+      { name: "Red jackfruit", price: "₹300" }
+    ]
+  },
+  {
+    category: "🍈 Longon Plant",
+    plants: [
+      { name: "4session Longon", price: "₹900" },
+      { name: "Black Longon", price: "₹2500" },
+      { name: "White Longon", price: "₹1200" },
+      { name: "Ping Pong Longon", price: "₹1200" },
+      { name: "Ruby Longon", price: "₹750" },
+      { name: "Red Ping Pong Longon", price: "₹1000" },
+      { name: "Ping ping Pong Longon", price: "₹1200" },
+      { name: "Desi Longon", price: "₹500" }
+    ]
+  },
+  {
+    category: "🍒 Litchi Plant",
+    plants: [
+      { name: "Bombai Litchi", price: "₹300" },
+      { name: "Muzaffarpur Sahi Litchi", price: "₹300" },
+      { name: "Chaina 3 lichi", price: "₹300" }
+    ]
+  },
+  {
+    category: "🍎 Water Apple Plant",
+    plants: [
+      { name: "Dalhari Champa Water Apple", price: "₹300" },
+      { name: "King Kong Chamba Water Apple", price: "₹350" },
+      { name: "Bali Champa Water Apple", price: "₹300" },
+      { name: "Red Missile Water Apple", price: "₹380" },
+      { name: "Rose Apple", price: "₹250" },
+      { name: "White Water Apple", price: "₹250" }
+    ]
+  },
+  {
+    category: "🍊 Pomelo Plant",
+    plants: [
+      { name: "Assembly Pomelo (green)", price: "₹0" },
+      { name: "Red Pomelo", price: "₹0" },
+      { name: "Yellow Pomelo", price: "₹0" }
+    ]
+  },
+  {
+    category: "🫐 Jamun Plant",
+    plants: [
+      { name: "Desi jamun", price: "₹250" },
+      { name: "Desi white Jamun", price: "₹280" },
+      { name: "Thai king jamun", price: "₹300" }
+    ]
+  },
+  {
+    category: "🥝 Kiwi Plant",
+    plants: [
+      { name: "Kiwi (grafted)", price: "₹450" },
+      { name: "Kiwi (clone)", price: "₹250" }
+    ]
+  },
+  {
+    category: "🌿 Amla",
+    plants: [
+      { name: "Red Amla", price: "₹230" },
+      { name: "Green Amla", price: "₹250" }
+    ]
+  },
+  {
+    category: "🍈 Pomegranate",
+    plants: [
+      { name: "Super Vagoa Anar", price: "₹350" },
+      { name: "Ganesh Anar", price: "₹280" }
+    ]
+  },
+  {
+    category: "🫐 Mulberry Plant",
+    plants: [
+      { name: "Long mulberry", price: "₹400" },
+      { name: "Short Mulberry", price: "₹250" }
+    ]
+  },
+  {
+    category: "🍈 Custard Apple",
+    plants: [
+      { name: "Golden custard apple", price: "₹350" },
+      { name: "Red custard apple", price: "₹400" }
+    ]
+  },
+  {
+    category: "🍒 Cherry",
+    plants: [
+      { name: "Sweet & sour Cherry", price: "₹250" },
+      { name: "Black surinam cherry", price: "₹700" },
+      { name: "Red Surinam cherry", price: "₹350" },
+      { name: "Manila cherry", price: "₹750" },
+      { name: "Savannah cherry", price: "₹800" },
+      { name: "Cherry of Rio Grande", price: "₹1200" }
+    ]
+  },
+  {
+    category: "🫐 Berry",
+    plants: [
+      { name: "Blue berry", price: "₹650" },
+      { name: "Black berry", price: "₹350" }
+    ]
+  },
+  {
+    category: "🌿 Fig Anjeer",
+    plants: [
+      { name: "Pune rade fig", price: "₹300" },
+      { name: "Turki brown fig/five finger fig", price: "₹400" }
+    ]
+  },
+  {
+    category: "🌿 Masala Plant",
+    plants: [
+      { name: "Dalchini plant", price: "₹300" },
+      { name: "Bay leaf plant", price: "₹250" },
+      { name: "Black paper plant", price: "₹350" },
+      { name: "Jayfal plant", price: "₹900" },
+      { name: "Kari patta plant", price: "₹300" },
+      { name: "Elachi plant", price: "₹250" }
+    ]
+  },
+  {
+    category: "🌲 Forest Plant",
+    plants: [
+      { name: "Red sandalwood", price: "₹250" },
+      { name: "White Sandalwood", price: "₹300" },
+      { name: "Mehgoni plant", price: "₹150" },
+      { name: "Segun plant", price: "₹150" },
+      { name: "Supari plant", price: "₹180" }
+    ]
+  },
+  {
+    category: "🌹 Climbing & Color Roses",
+    plants: [
+      { name: "Climbing Rose (Red)", price: "₹400-₹600" },
+      { name: "Climbing Rose (Pink)", price: "₹400-₹600" },
+      { name: "Climbing Rose (Yellow)", price: "₹350-₹500" },
+      { name: "Hybrid English Rose (Lady Hillingdon)", price: "₹240-₹400" },
+      { name: "Damascus Rose (scented hybrid)", price: "₹300-₹400" },
+      { name: "Miniature/Button Roses (mixed colors)", price: "₹300-₹350" }
+    ]
+  },
+  {
+    category: "🌸 Orchids & Exotic Flowerers",
+    plants: [
+      { name: "Phalaenopsis Hybrid (Flowering)", price: "₹500-₹800" },
+      { name: "Dendrobium/Spathoglottis", price: "₹200-₹400" },
+      { name: "Oncidium/Tolumnia", price: "₹300-₹500" },
+      { name: "Cattleya/Vanda hybrids", price: "₹500-₹1000+" },
+      { name: "Jewel Orchid (Anoectochilus spp.)", price: "₹300-₹500" }
+    ]
+  },
+  {
+    category: "🌼 Native & Fragrant Indian Flowering Shrubs",
+    plants: [
+      { name: "Raat Ki Rani (Cestrum nocturnum)", price: "₹300-₹400" },
+      { name: "Yellow Raat Ki Rani", price: "₹300-₹499" },
+      { name: "Chameli/Mogra (Jasminum sambac)", price: "₹120-₹180" },
+      { name: "Harshringar/Parijat (Cestrum diurnum)", price: "₹350-₹450" },
+      { name: "Ixora (Flowering shrub native)", price: "₹120-₹150" },
+      { name: "Hibiscus Rosa-sinensis (common)", price: "₹150-₹250" },
+      { name: "Hibiscus Hybrid Grafted (double blooms)", price: "₹200-₹350" },
+      { name: "Thunbergia mysorensis (Mysore trumpet vine)", price: "₹250-₹350" },
+      { name: "Periwinkle (Catharanthus roseus)", price: "₹50-₹100" },
+      { name: "Marigold (Tagetes) bedding annual", price: "₹30-₹50" },
+      { name: "Jasmine sambac 'Mysore Mallige'", price: "₹120-₹180" }
+    ]
+  },
+  {
+    category: "🌷 Ornamental Hybrids & Garden Varieties",
+    plants: [
+      { name: "Azalea/Rhododendron (hybrid)", price: "₹350-₹500" },
+      { name: "Petunia (hybrid annual climbers)", price: "₹25-₹50" },
+      { name: "Balsam (Impatiens balsamina)", price: "₹20-₹40" },
+      { name: "Rain Lily (Zephyranthes) bulbs", price: "₹40-₹70" },
+      { name: "Chrysanthemum (garden mum)", price: "₹100-₹150" },
+      { name: "Kanakambara (Crossandra spp.)", price: "₹60-₹120" },
+      { name: "Perennial Coleus", price: "₹40-₹80" },
+      { name: "Geranium (Pelargonium zonale)", price: "₹80-₹150" },
+      { name: "Oleander (Nerium oleander)", price: "₹150-₹200" },
+      { name: "Plumeria (Frangipani)", price: "₹200-₹350" },
+      { name: "Bougainvillea Hybrid", price: "₹350-₹500" },
+      { name: "Lantana camara", price: "₹60-₹120" },
+      { name: "Mussaenda (tropical shrub)", price: "₹150-₹250" },
+      { name: "Philippine Violet (Barleria cristata)", price: "₹80-₹120" },
+      { name: "Gardenia jasminoides (Cape Jasmine)", price: "₹150-₹250" },
+      { name: "Hibiscus syriacus (Rose of Sharon)", price: "₹200-₹350" },
+      { name: "Ixora 'Nora Grant' (hybrid cultivar)", price: "₹150-₹200" },
+      { name: "Stephanotis floribunda (Madagascar jasmine)", price: "₹200-₹350" },
+      { name: "Tagetes minuta (Wild marigold)", price: "₹20-₹40" },
+      { name: "Plumbago auriculata (Cape leadwort)", price: "₹120-₹200" }
+    ]
+  },
+  {
+    category: "🌳 Flowering Trees & Seasonal Blooms",
+    plants: [
+      { name: "Magnolia champaca (Champak)", price: "₹250-₹400" },
+      { name: "Tabebuia rosea (Pink trumpet tree)", price: "₹200-₹300" },
+      { name: "Bauhinia purpurea (Purple Bauhinia)", price: "₹150-₹250" },
+      { name: "Cassia fistula (Golden shower tree)", price: "₹150-₹250" }
+    ]
+  },
+  {
+    category: "🏵 Annual & Showy Flowers",
+    plants: [
+      { name: "Dahlia (grafted tuber plant)", price: "₹150-₹250" },
+      { name: "Zinnia (annual flower bedding)", price: "₹20-₹40" },
+      { name: "Sunflower (grafted/multi-branch)", price: "₹50-₹100" },
+      { name: "Hybrid Gladiolus (flowering bulbs)", price: "₹60-₹100" }
+    ]
+  },
   {
     category: "🌿 Other Varieties",
     plants: [
@@ -82,7 +347,8 @@ const categories = [
   { name: "All Plants", icon: Leaf, active: true },
   { name: "Fruit Plants", icon: TreePine, active: false },
   { name: "Flowers", icon: Flower, active: false },
-  { name: "Ornamental", icon: Sparkles, active: false }
+  { name: "Ornamental", icon: Sparkles, active: false },
+  { name: "Masala Plants", icon: Leaf, active: false }
 ];
 
 const PlantCatalog = () => {
@@ -105,11 +371,52 @@ const PlantCatalog = () => {
         category.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
-    const matchesCategory = 
+    const isFruitCategory = [
+    'Guava', 'Lemon', 'Mosambi', 'Orange', 'Apple Ber', 'Dragon Fruit', 'Chikko', 'Coconut',
+    'Jackfruit', 'Longon', 'Litchi', 'Water Apple', 'Pomelo', 'Jamun', 'Kiwi', 'Amla',
+    'Pomegranate', 'Mulberry', 'Custard Apple', 'Cherry', 'Berry'
+  ].some(fruit => category.includes(fruit));
+  
+  const isOrnamentalCategory = [
+    'Azalea', 'Rhododendron', 'Petunia', 'Balsam', 'Rain Lily', 'Chrysanthemum', 'Kanakambara',
+    'Coleus', 'Geranium', 'Oleander', 'Plumeria', 'Frangipani', 'Bougainvillea', 'Lantana',
+    'Mussaenda', 'Philippine Violet', 'Barleria', 'Gardenia', 'Jasmine', 'Hibiscus', 'Ixora',
+    'Stephanotis', 'Tagetes', 'Plumbago', 'Magnolia', 'Tabebuia', 'Bauhinia', 'Ornamental',
+    'Flowering Trees', 'Seasonal Blooms'
+  ].some(ornamental => category.includes(ornamental));
+  
+  const isMasalaPlant = [
+    'Dalchini', 'Bay leaf', 'Black paper', 'Jayfal', 'Kari patta', 'Elachi', 'Masala',
+    'Sweet tamarind', 'Thai all Time sweet amra', 'Cashew nuts', 'All time star fruit',
+    'Parsimmon', 'Rambhutan', 'Mangosteen', 'HRMN 99 Apple', 'Olive', 'G9 Banana',
+    'Red banana', 'Macdomia nut', 'Apricot', 'Passion fruit', 'Pear', 'Almond',
+    'Sweet lubi', 'Black sapota', 'Nonifol', 'Abiu', 'Jaboticaba', 'Fig Anjeer',
+    'Pune rade fig', 'Turki brown fig', 'Red sandalwood', 'White Sandalwood',
+    'Mehgoni', 'Segun', 'Supari', 'Forest Plant'
+  ].some(plant => category.includes(plant));
+  
+  const isFlowerCategory = [
+    // Flowering Trees & Seasonal Blooms
+    'Magnolia champaca', 'Tabebuia', 'Bauhinia', 'Cassia fistula',
+    // Annual & Showy Flowers
+    'Dahlia', 'Zinnia', 'Sunflower', 'Gladiolus',
+    // Climbing & Color Roses
+    'Climbing Rose', 'Hybrid English Rose', 'Damascus Rose', 'Miniature/Button Roses',
+    // Orchids & Exotic Flowerers
+    'Phalaenopsis', 'Dendrobium', 'Spathoglottis', 'Oncidium', 'Tolumnia',
+    'Cattleya', 'Vanda', 'Jewel Orchid', 'Anoectochilus',
+    // Native & Fragrant Indian Flowering Shrubs
+    'Raat Ki Rani', 'Cestrum', 'Chameli', 'Mogra', 'Jasminum', 'Harshringar',
+    'Parijat', 'Ixora', 'Hibiscus', 'Thunbergia', 'Periwinkle',
+    'Catharanthus', 'Marigold', 'Tagetes', 'Mysore Mallige'
+  ].some(flower => category.includes(flower));
+  
+  const matchesCategory = 
       activeCategory === "All Plants" || 
-      (activeCategory === "Fruit Plants" && !category.includes("🌿")) ||
-      (activeCategory === "Flowers" && category.includes("🌺")) ||
-      (activeCategory === "Ornamental" && category.includes("🌿"));
+      (activeCategory === "Fruit Plants" && isFruitCategory) ||
+      (activeCategory === "Flowers" && (category.match(/[🌷🌺🌸🌹🌻🌼💮🏵️]/) || isFlowerCategory)) ||
+      (activeCategory === "Ornamental" && (category.includes("🌿") || isOrnamentalCategory)) ||
+      (activeCategory === "Masala Plants" && isMasalaPlant);
     
     return matchesSearch && matchesCategory;
   });
