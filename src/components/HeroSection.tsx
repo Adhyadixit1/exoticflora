@@ -74,7 +74,7 @@ const HeroSection = () => {
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat gradient-animation"
           style={{
-            backgroundImage: `linear-gradient(rgba(22, 101, 52, 0.8), rgba(22, 101, 52, 0.6)), url(${heroBackground})`,
+            backgroundImage: `linear-gradient(rgba(22, 101, 52, 0.6), rgba(22, 101, 52, 0.4)), url(${heroBackground})`,
             filter: `blur(${blur}px)`
           }}
         />

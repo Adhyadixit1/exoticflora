@@ -41,9 +41,11 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className={`fixed top-0 left-0 right-0 z-50 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background/90 backdrop-blur-md'
-      } border-b border-border h-20 flex items-center transition-colors duration-300`}
+      className={`fixed top-4 left-4 right-4 rounded-xl z-50 ${
+        isScrolled 
+          ? 'bg-white/20 dark:bg-black/30 backdrop-blur-lg border border-white/20 shadow-xl' 
+          : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-transparent'
+      } h-16 flex items-center transition-all duration-300`}
     >
       <div className="container mx-auto px-4 w-full">
         <div className="flex items-center justify-between">
@@ -51,8 +53,8 @@ const Navbar = () => {
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
           >
-            <Leaf className="h-8 w-8 text-nature-primary" />
-            <span className="text-2xl font-bold text-nature-secondary">Exotic Flora</span>
+            <Leaf className="h-8 w-8 text-green-700 dark:text-green-500" />
+            <span className="text-2xl font-bold text-gray-800 dark:text-white">Exotic Flora</span>
           </motion.div>
           
           {/* Desktop Navigation */}
@@ -61,7 +63,7 @@ const Navbar = () => {
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-foreground hover:text-nature-primary transition-colors duration-300"
+                className="text-gray-800 hover:text-green-600 dark:text-white dark:hover:text-green-400 transition-colors duration-300 font-medium"
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
                 onClick={handleNavClick}
