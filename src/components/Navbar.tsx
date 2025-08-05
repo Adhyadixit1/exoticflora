@@ -7,6 +7,7 @@ const navItems = ["Home", "About", "Plants", "Flowers", "Reviews", "Gallery", "C
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   // Close mobile menu when clicking on a nav item
   const handleNavClick = () => {
@@ -23,9 +24,17 @@ const Navbar = () => {
       }
     };
 
-    // Handle scroll for navbar background
+    // Handle scroll for navbar background and text color
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 10);
+      
+      // Get hero section height (adjust the selector if needed)
+      const heroSection = document.getElementById('hero');
+      const heroHeight = heroSection ? heroSection.offsetHeight : 500; // Fallback to 500px
+      
+      // Update text color based on scroll position
+      setIsPastHero(scrollPosition > heroHeight * 0.7); // Start changing before fully past
     };
 
     window.addEventListener('resize', handleResize);
@@ -45,7 +54,9 @@ const Navbar = () => {
         isScrolled 
           ? 'bg-white/20 dark:bg-black/30 backdrop-blur-lg border border-white/20 shadow-xl' 
           : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-transparent'
-      } h-16 flex items-center transition-all duration-300`}
+      } h-16 flex items-center transition-all duration-300 ${
+        isPastHero ? 'text-gray-900' : 'text-white'
+      }`}
     >
       <div className="container mx-auto px-4 w-full">
         <div className="flex items-center justify-between">
@@ -59,7 +70,7 @@ const Navbar = () => {
             >
               <Leaf className="h-8 w-8 text-green-500" />
             </motion.div>
-            <span className="text-2xl font-bold text-white">Exotic Flora</span>
+            <span className="text-2xl font-bold">Exotic Flora</span>
           </motion.div>
           
           {/* Desktop Navigation */}
@@ -68,7 +79,7 @@ const Navbar = () => {
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-white hover:text-green-200 transition-colors duration-300 font-medium"
+                className="hover:text-green-200 transition-colors duration-300 font-medium"
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
                 onClick={handleNavClick}

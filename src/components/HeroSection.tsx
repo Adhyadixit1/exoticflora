@@ -65,7 +65,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section ref={ref} className="relative min-h-screen pt-24">
+    <section id="hero" ref={ref} className="relative min-h-screen pt-24">
       {/* Enhanced Background with Multiple Parallax Layers */}
       <motion.div
         className="absolute inset-0 z-0"
