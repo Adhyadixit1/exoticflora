@@ -19,7 +19,9 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <PlantCatalog />
+      <div id="plants" className="scroll-mt-20">
+        <PlantCatalog />
+      </div>
       <ReviewsSection />
       <FlowersSection />
       <PlantLifecycle />

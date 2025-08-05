@@ -31,8 +31,12 @@ const HeroSection = () => {
 
   const whatsappNumber = "+919211549170";
 
-  const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+  const navigateToPlants = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const plantsSection = document.getElementById('plants');
+    if (plantsSection) {
+      plantsSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const containerVariants = {
@@ -215,7 +219,7 @@ const HeroSection = () => {
 
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                className="flex justify-center lg:justify-start"
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -223,7 +227,7 @@ const HeroSection = () => {
                 >
                   <Button
                     size="lg"
-                    onClick={handleWhatsAppClick}
+                    onClick={navigateToPlants}
                     className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg relative overflow-hidden group"
                   >
                     <motion.div
@@ -236,18 +240,6 @@ const HeroSection = () => {
                       <MessageCircle className="mr-2 h-5 w-5" />
                       Explore Our Collection
                     </span>
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-nature-secondary px-8 py-4 text-lg backdrop-blur-sm bg-white/10"
-                  >
-                    Contact Expert
                   </Button>
                 </motion.div>
               </motion.div>

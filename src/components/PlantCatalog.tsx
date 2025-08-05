@@ -1,8 +1,10 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { Leaf, Flower, TreePine, Sparkles, Search } from "lucide-react";
+import { Leaf, Flower, TreePine, Sparkles, Search, ShoppingCart } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
+import { Cart } from "./Cart";
 
 // Single source of truth for plant categories and their plants
 const plantCategories = [
@@ -388,6 +390,22 @@ const categories = [
 const PlantCatalog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Plants");
+  const { addItem } = useCart();
+  
+  // Function to add item to cart with proper ID and data
+  const handleAddToCart = (plant: { name: string; price: string }, category: string) => {
+    // Create a consistent ID using the plant name and category
+    const itemId = `${category}-${plant.name}`.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+    
+    const item = {
+      id: itemId,
+      name: `${plant.name} (${category})`,
+      price: plant.price
+    };
+    
+    console.log('Adding to cart:', item);
+    addItem(item);
+  };
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({
@@ -589,17 +607,32 @@ const PlantCatalog = () => {
                 <ul className="space-y-2">
                   {plants.map((plant) => {
                     const searchQuery = encodeURIComponent(`${plant.name} plant care`);
+                    const itemId = `${category}-${plant.name}`.replace(/\s+/g, '-').toLowerCase();
+                    
                     return (
-                      <li key={`${category}-${plant.name}`} className="flex justify-between">
-                        <a 
-                          href={`https://www.google.com/search?q=${searchQuery}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-foreground/90 hover:text-primary hover:underline transition-colors"
-                        >
-                          {plant.name}
-                        </a>
-                        <span className="font-medium text-primary">{plant.price}</span>
+                      <li key={itemId} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-2 border-b">
+                        <div className="flex-1">
+                          <a 
+                            href={`https://www.google.com/search?q=${searchQuery}`} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-foreground/90 hover:text-primary hover:underline transition-colors"
+                          >
+                            {plant.name}
+                          </a>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <span className="font-medium text-primary whitespace-nowrap">{plant.price}</span>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="h-8 px-2 sm:px-3 text-xs sm:text-sm"
+                            onClick={() => handleAddToCart(plant, category)}
+                          >
+                            <ShoppingCart className="h-4 w-4 mr-1" />
+                            Add
+                          </Button>
+                        </div>
                       </li>
                     );
                   })}
@@ -629,6 +662,7 @@ const PlantCatalog = () => {
           </motion.div>
         )}
       </div>
+      <Cart />
     </section>
   );
 };
