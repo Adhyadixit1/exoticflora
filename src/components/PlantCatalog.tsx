@@ -587,12 +587,22 @@ const PlantCatalog = () => {
               </div>
               <div className="p-4">
                 <ul className="space-y-2">
-                  {plants.map((plant) => (
-                    <li key={`${category}-${plant.name}`} className="flex justify-between">
-                      <span className="text-foreground/90">{plant.name}</span>
-                      <span className="font-medium text-primary">{plant.price}</span>
-                    </li>
-                  ))}
+                  {plants.map((plant) => {
+                    const searchQuery = encodeURIComponent(`${plant.name} plant care`);
+                    return (
+                      <li key={`${category}-${plant.name}`} className="flex justify-between">
+                        <a 
+                          href={`https://www.google.com/search?q=${searchQuery}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-foreground/90 hover:text-primary hover:underline transition-colors"
+                        >
+                          {plant.name}
+                        </a>
+                        <span className="font-medium text-primary">{plant.price}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </motion.div>
