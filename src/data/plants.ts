@@ -31,7 +31,8 @@ export const plantCategories = [
       { name: "Bari 13 mango", price: "₹400" },
       { name: "Nam Docmi mango", price: "₹450" },
       { name: "Ambika mango", price: "₹400" },
-      { name: "Totapuri Mango", price: "₹330" }
+      { name: "Totapuri Mango", price: "₹330" },
+      { name: "Kasturi black mango", price: "₹500" }
     ]
   },
   {

@@ -49,7 +49,7 @@ const plantCategories = [
       { name: "Golden 8 Guava", price: "₹200" },
       { name: "Black diamond guava", price: "₹1000" },
       { name: "Vnr guava", price: "₹200" },
-      { name: "Red Diamond 1 guava", price: "₹300" },
+      { name: "Red Diamond Guava", price: "₹300" },
       { name: "Allahbad guava", price: "₹150" },
       { name: "Verigated guava", price: "₹300" },
       { name: "Strawberry guava", price: "₹350" },
@@ -93,8 +93,8 @@ const plantCategories = [
       { name: "Pakistani orange", price: "₹350" },
       { name: "Decopon orange", price: "₹370" },
       { name: "Nagpur orange", price: "₹300" },
-      { name: "Chainij Ramlongon orange", price: "₹250" },
-      { name: "Blad orange", price: "₹450" },
+      { name: "Chainij Rambutan orange", price: "₹250" },
+      { name: "Blood orange", price: "₹450" },
       { name: "Kinnu orange", price: "₹300" }
     ]
   },
@@ -143,7 +143,7 @@ const plantCategories = [
   {
     category: "🍈 Longon Plant",
     plants: [
-      { name: "4session Longon", price: "₹900" },
+      { name: "4 Season Longon", price: "₹900" },
       { name: "Black Longon", price: "₹2500" },
       { name: "White Longon", price: "₹1200" },
       { name: "Ping Pong Longon", price: "₹1200" },
