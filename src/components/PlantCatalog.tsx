@@ -35,7 +35,7 @@ const plantCategories = [
       { name: "Pusa Arunika mango", price: "₹400" },
       { name: "3 taste mango", price: "₹380" },
       { name: "Kasturi black mango", price: "₹500" },
-      { name: "Bari 11 mango", price: "₹350" },
+      { name: "Chausa mango", price: "₹350" },
       { name: "Bari 13 mango", price: "₹400" },
       { name: "Nam Docmi mango", price: "₹450" },
       { name: "Ambika mango", price: "₹400" },
